@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catálogo de Produtos</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header h1 {
+      font-weight: 700;
+      color: #2c3e50;
+    }
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgb(0 0 0 / 0.15);
+    }
+    .product-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .product-info {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 8px;
+      color: #34495e;
+    }
+    .product-desc {
+      flex-grow: 1;
+      font-size: 0.9rem;
+      color: #7f8c8d;
+      margin-bottom: 10px;
+    }
+    .product-price {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #27ae60;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Catálogo de Produtos</h1>
+    <p>Confira nossos produtos disponíveis</p>
+  </header>
+  <main class="catalog" id="catalog"></main>
+
+  <footer>
+    &copy; 2025 Catálogo Simples - Todos os direitos reservados
+  </footer>
+
+  <script>
+    const products = [
+      {
+        name: 'Tênis Esportivo',
+        image: 'https://images.unsplash.com/photo-1552346154-d2a974b4021b?auto=format&fit=crop&w=400&q=80',
+        price: 199.90,
+        description: 'Tênis confortável ideal para corridas e caminhadas.'
+      },
+      {
+        name: 'Mochila Casual',
+        image: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=400&q=80',
+        price: 129.50,
+        description: 'Mochila resistente com vários compartimentos para seu dia a dia.'
+      },
+      {
+        name: 'Relógio Digital',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
+        price: 349.00,
+        description: 'Relógio moderno com múltiplas funções e display LED.'
+      },
+      {
+        name: 'Fones de Ouvido',
+        image: 'https://images.unsplash.com/photo-1512499617640-c2f9991493d4?auto=format&fit=crop&w=400&q=80',
+        price: 89.90,
+        description: 'Fones com som de alta qualidade e cancelamento de ruído.'
+      },
+      {
+        name: 'Camiseta Básica',
+        image: 'https://images.unsplash.com/photo-1520975691895-38220ab4dd22?auto=format&fit=crop&w=400&q=80',
+        price: 49.90,
+        description: 'Camiseta de algodão 100% confortável para o dia a dia.'
+      },
+      {
+        name: 'Garrafa Térmica',
+        image: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80',
+        price: 79.90,
+        description: 'Garrafa que mantém sua bebida quente ou fria por horas.'
+      }
+    ];
+
+    function formatPrice(price) {
+      return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function createProductCard(product) {
+      const card = document.createElement('article');
+      card.className = 'product-card';
+
+      card.innerHTML = `
+        <img class="product-image" src="${product.image}" alt="${product.name}" />
+        <div class="product-info">
+          <h2 class="product-name">${product.name}</h2>
+          <p class="product-desc">${product.description}</p>
+          <p class="product-price">${formatPrice(product.price)}</p>
+        </div>
+      `;
+
+      return card;
+    }
+
+    const catalogEl = document.getElementById('catalog');
+
+    products.forEach(prod => {
+      const card = createProductCard(prod);
+      catalogEl.appendChild(card);
+    });
+  </script>
+</body>
+</html>
